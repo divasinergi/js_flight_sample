@@ -32,7 +32,7 @@
                     <div class="control-group">
                         <label for="linkauth" class="control-label">Otentikasi</label>
                         <div class="controls">
-                            <input type="text" id="linkauth" class="input-xlarge" placeholder="Link" value="http://101.50.1.134:7551/api_flight_dev/api/auth/login" style="width:92%;color:#ff4000;font-weight:bold;font-family:'Consolas'">
+                            <input type="text" id="linkauth" class="input-xlarge" placeholder="Link" value="" style="width:92%;color:#ff4000;font-weight:bold;font-family:'Consolas'">
                             <span class="help-block" style="color:#ff8000">Berupa rangkaian teks tautan 'Auth' dari Diva Sinergi</span>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                     <div class="control-group">
                         <label for="linkflightavail" class="control-label">Flight Search</label>
                         <div class="controls">
-                            <input type="text" id="linkflightavail" class="input-xlarge" placeholder="Link" value="http://101.50.1.134:7551/api_flight_dev/api/flightavail/check" style="width:92%;color:#ff4000;font-weight:bold;font-family:'Consolas'">
+                            <input type="text" id="linkflightavail" class="input-xlarge" placeholder="Link" value="" style="width:92%;color:#ff4000;font-weight:bold;font-family:'Consolas'">
                             <span class="help-block" style="color:#ff8000">Berupa rangkaian teks tautan 'Flight Avail' dari Diva Sinergi</span>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                     <div class="control-group">
                         <label for="linkflightdetail" class="control-label">Flight Detail</label>
                         <div class="controls">
-                            <input type="text" id="linkflightdetail" class="input-xlarge" placeholder="Link" value="http://101.50.1.134:7551/api_flight_dev/api/flightdetail/show" style="width:92%;color:#ff4000;font-weight:bold;font-family:'Consolas'">
+                            <input type="text" id="linkflightdetail" class="input-xlarge" placeholder="Link" value="" style="width:92%;color:#ff4000;font-weight:bold;font-family:'Consolas'">
                             <span class="help-block" style="color:#ff8000">Berupa rangkaian teks tautan 'Flight Detail' dari Diva Sinergi</span>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="control-group">
                         <label for="linkflightbooking" class="control-label">Flight Booking</label>
                         <div class="controls">
-                            <input type="text" id="linkflightbooking" class="input-xlarge" placeholder="Link" value="http://101.50.1.134:7551/api_flight_dev/api/flightbooking/run" style="width:92%;color:#ff4000;font-weight:bold;font-family:'Consolas'">
+                            <input type="text" id="linkflightbooking" class="input-xlarge" placeholder="Link" value="" style="width:92%;color:#ff4000;font-weight:bold;font-family:'Consolas'">
                             <span class="help-block" style="color:#ff8000">Berupa rangkaian teks tautan 'Flight Booking' dari Diva Sinergi</span>
                         </div>
                     </div>
@@ -81,14 +81,14 @@
                     <div class="control-group">
                         <label for="txtuser" class="control-label">ID Pengguna</label>
                         <div class="controls">
-                            <input id="txtuser" autocomplete="off" placeholder="Text input" class="input-xlarge" type="text">
+                            <input id="txtuser" autocomplete="off" placeholder="Text input" class="input-xlarge" type="text" value="">
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label for="txtpass" class="control-label">Kata Sandi</label>
                         <div class="controls">
-                            <input id="txtpass" autocomplete="off" placeholder="Password input" class="input-xlarge" type="password">
+                            <input id="txtpass" autocomplete="off" placeholder="Password input" class="input-xlarge" type="password" value="">
                         </div>
                     </div>
 
@@ -212,6 +212,7 @@
                             <label class="control-label">&nbsp;</label>
                             <div class="controls controls-row">
                                 <button type="button" class="btn btn-primary" id="btnsearch">Cari Penerbangan</button>
+                                <a href="javascript:;" style="text-decoration:none;display:none" id="btnEnableSearch">Tampilkan Tombol</a>
                             </div>
                         </div>
                     </div>
@@ -224,7 +225,6 @@
         </div>
         <p>&nbsp;</p><p>&nbsp;</p>
         
-
         <!-- ///// Hasil Pencarian /////  -->
         <div class="box box-color box-bordered" id="divAvail" style="display:none">
             <div class="box-title">
@@ -249,20 +249,98 @@
                 <table class="table table-hover table-nomargin table-striped" id="tableAvail">
                     <thead>
                         <tr>
-                            <th><i class="icon-plane"></i> Maskapai</th>
-                            <th width="100px"><i class="icon-time"></i> Berangkat</th>
-                            <th width="100px"><i class="icon-time"></i> Tiba</th>
+                            <th>
+                                <i class="icon-plane"></i> Maskapai &nbsp; 
+                                <a href="javascript:;" id="sortAirline" style="text-decoration:none"><i class="icon-sort"></i></a>
+                            </th>
+                            <th width="100px">
+                                <i class="icon-time"></i> Berangkat &nbsp; 
+                                <a href="javascript:;" id="sortDepart" style="text-decoration:none"><i class="icon-sort"></i></a>
+                            </th>
+                            <th width="100px"><i class="icon-time"></i> Tiba
+                            </th>
                             <th width="100px"><i class="glyphicon-stopwatch"></i> Durasi</th>
-                            <th width="150px"><i class="icon-money"></i> Harga</th>
+                            <th width="150px">
+                                <i class="icon-money"></i> Harga &nbsp; 
+                                <a href="javascript:;" id="sortPrice" style="text-decoration:none"><i class="icon-sort"></i></a>
+                            </th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        <!--tr>
+                            <td>
+                                <div class="row-fluid">
+                                    <div class="span3">
+                                        <img src="images/icons/GA.png" width="30px" height="30px"><br>
+                                        GA 132
+                                    </div>
+                                    <div class="span9" style="padding-top:10px">
+                                        <strong style="font-size:16pt">Garuda Indonesia</strong><br>
+                                        Langsung
+                                    </div>
+                                </div>
+                            </td>
+                            <td align="center">
+                                <b style="font-size:10pt">01:10</b>
+                            </td>
+                            <td align="center">01:45</td>
+                            <td align="center">02:12</td>
+                            <td align="right"><sub>IDR</sub> <b style="font-size:18pt">500.000</b></td>
+                            <td>
+                                <button type="button" class="btn btn-success"><i class="icon-circle-arrow-right"></i> Pilih</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row-fluid">
+                                    <div class="span3">
+                                        <img src="images/icons/GA.png" width="30px" height="30px"><br>
+                                        GA 132
+                                    </div>
+                                    <div class="span9" style="padding-top:10px">
+                                        <strong style="font-size:16pt">Garuda Indonesia</strong><br>
+                                        Langsung
+                                    </div>
+                                </div>
+                            </td>
+                            <td align="center">
+                                <b style="font-size:10pt">01:10</b>
+                            </td>
+                            <td align="center">01:45</td>
+                            <td align="center">02:12</td>
+                            <td align="right"><sub>IDR</sub> <b style="font-size:18pt">500.000</b></td>
+                            <td>
+                                <button type="button" class="btn btn-success"><i class="icon-circle-arrow-right"></i> Pilih</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row-fluid">
+                                    <div class="span3">
+                                        <img src="images/icons/GA.png" width="30px" height="30px"><br>
+                                        GA 132
+                                    </div>
+                                    <div class="span9" style="padding-top:10px">
+                                        <strong style="font-size:16pt;color:red">Garuda Indonesia</strong><br>
+                                        Langsung
+                                    </div>
+                                </div>
+                            </td>
+                            <td align="center">
+                                <b style="font-size:10pt">01:10</b>
+                            </td>
+                            <td align="center">01:45</td>
+                            <td align="center">02:12</td>
+                            <td align="right"><sub>IDR</sub> <b style="font-size:18pt">500.000</b></td>
+                            <td>
+                                <button type="button" class="btn btn-success"><i class="icon-circle-arrow-right"></i> Pilih</button>
+                            </td>
+                        </tr-->
                     </tbody>
                 </table>
-                <div class="table-pagination">
-                    <a href="#" class="disabled">First</a>
+                <div class="table-pagination" id="tablepagination">
+                    <!--a href="#" class="disabled">First</a>
                     <a href="#" class="disabled">Previous</a>
                     <span>
                         <a href="#" class="active">1</a>
@@ -270,7 +348,7 @@
                         <a href="#">3</a>
                     </span>
                     <a href="#">Next</a>
-                    <a href="#">Last</a>
+                    <a href="#">Last</a-->
                 </div>
             </div>
         </div>
